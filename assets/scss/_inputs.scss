@@ -1,0 +1,44 @@
+.inputGroup{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.inputContainer{
+    display: grid;
+    grid-template-columns:1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-bottom: 1rem;
+    label{
+        color: white;
+    }
+    input{
+        background-color: hsl(0,0%, 15%);
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        color: white;
+        transition: 250ms;
+        outline: none;
+        border: 2px solid transparent;
+        margin-right: 1rem;
+        &:focus{
+            border-color: white;
+            transition: 250ms;
+        }
+    }
+    .error{
+    color: hsl(0, 100%, 60%);
+    align-self: center;
+}
+}
+.formBtn{
+background-color: hsl(0, 0%, 15%);
+border: 1px solid transparent;
+color: white;
+font-size: 1.1rem;
+padding: 0.5rem;
+border-radius: 0.5rem;
+transition: 250ms;
+&:hover{
+    border-color: white;
+    transition: 250ms;
+}
+}
