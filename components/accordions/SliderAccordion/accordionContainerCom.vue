@@ -69,7 +69,7 @@ const props = defineProps({
 		type:Number
 	}
 })
-const DeleteOpen = computed(()=> store.modalOpen)
+const DeleteOpen = ref(false)
 const title = ref("")
 const image = ref("")
 const btn1Title = ref("")
@@ -101,6 +101,8 @@ function onSubmit(){
 }
 function removeSlide(){
 	store.deleteSlide(props.currentSlideId - 1)
+	store.setModalOpen(false)
+
 }
 setInputDefault()
 function openAccordion(){
@@ -114,9 +116,11 @@ function openAccordion(){
 }
 function openDeleteModal(){
 	store.setModalOpen(true)
+	DeleteOpen.value = true
 }
 function closeDelete(){
 	store.setModalOpen(false)
+	DeleteOpen.value = false
 }
 onMounted(()=>{
 	openAccordion()

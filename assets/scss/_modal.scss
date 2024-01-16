@@ -1,0 +1,21 @@
+.modal{
+	background-color: hsl(0, 0%, 30%);
+	width: fit-content;
+	height: fit-content;
+	padding: 1rem;
+	color: white;
+	border-radius: 1rem;
+	position: fixed;
+	z-index: 98;
+	top: 20%;
+	left: 50%;
+    transform: translateX(-25%);
+	width: 300px;
+	margin-left: -150px;
+	.btnContainer{
+		display: flex;
+		justify-content: space-between;
+		width: 50%;
+		margin: 0 auto;
+	}
+}

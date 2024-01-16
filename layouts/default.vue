@@ -28,7 +28,7 @@ const pages = ref([
     },
     {
         link:"/ProductsPage",
-        title:'Products Page',
+        title:'Product Page',
         selected:false
     }
 ])
