@@ -104,7 +104,20 @@
         images.value.splice(data, 1)
     }
     function addProduct(){
-
+        let tempObject = {
+            contentType:"product",
+            title:title.value,
+            subTitle:subTitle.value,
+            titleInfo:titleInfo.value,
+            price:price.value,
+            normalPrice:normalPrice.value,
+            isDemo:isDemo.value,
+            images:images.value,
+            mainSpec1:mainSpec1.value,
+            mainSpec2:mainSpec2.value,
+            mainSpec3:mainSpec3.value,
+        }
+        store.setProducts(tempObject)
     }
 </script>
 <style lang="scss" scoped>

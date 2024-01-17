@@ -66,6 +66,9 @@ export const useStore = defineStore('glStore', {
     setModalOpen(data){
       this.modalOpen = data
     },
+    setProducts(data){
+      this.products.push(data)
+    },
     deleteProduct(data){
       this.products.splice(data, 1)
     }
