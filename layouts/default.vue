@@ -58,6 +58,8 @@ watch(currentRoute, async(newData, oldData)=>{
 header{
 grid-column: 1/2;
 grid-row: 1/13;
+position: relative;
+z-index: 2;
 }
 .defaultPage{
     min-height:100vh ;

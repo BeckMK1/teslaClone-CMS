@@ -6,6 +6,19 @@ export default defineNuxtPlugin(() => {
         }
         return true;
       });
+
+      defineRule('file', value =>{
+        if(!value || !value.length){
+          return true;
+        }
+        const filePngPattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.png')
+        const fileJpgPattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.jpg')
+        if(filePngPattern.test(value) || fileJpgPattern.test(value)){
+          return true
+        }
+        return "This field must be a file path and type"
+      });
+
       defineRule('link', value => {
         if(!value || !value.length){
             return true;

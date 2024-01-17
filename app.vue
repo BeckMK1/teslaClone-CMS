@@ -16,4 +16,6 @@
   margin: 0;
   font-family: system-ui, sans-serif;
 }
+body{
+}
 </style>
