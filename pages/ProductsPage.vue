@@ -16,10 +16,12 @@
 	import { useStore } from "@/store/glStore"
 	const store = useStore()
 	function PostToDb(){
-		$fetch('http://localhost:3002/api/post', {
-			method:'POST',
-			body:{products: store.products}
-		})
+			for(let product of store.products){
+			$fetch('http://localhost:3002/api/post', {
+				method:'POST',
+				body:{product: product}
+			})
+		}
 	}
 </script>
 <style lang="scss" scoped>
