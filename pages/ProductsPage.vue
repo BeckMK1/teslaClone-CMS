@@ -19,7 +19,7 @@
 			for(let product of store.products){
 			$fetch('http://localhost:3002/api/post', {
 				method:'POST',
-				body:{product: product}
+				body:product
 			})
 		}
 	}
