@@ -5,7 +5,7 @@
 				<p>{{ displayTitle }}</p>
 				<font-awesome-icon :class=" isOpen == true ? 'arrowOpen' : ''" icon="fa-solid fa-chevron-down" />
 			</div>
-			<div class="content">
+			<div class="content" :class="'contentSlide-' + currentSlideId">
 				<div class="contentInner">
 					<VeeForm @submit="onSubmit">
 			<div class="inputGroup">
@@ -100,19 +100,21 @@ function onSubmit(){
 	}
 }
 function removeSlide(){
-	store.deleteSlide(props.currentSlideId - 1)
+	store.deleteSlide(props.currentSlideId)
 	store.setModalOpen(false)
 
 }
 setInputDefault()
 function openAccordion(){
-	const accordionConten =	document.querySelector(".accordion .contentInner").offsetHeight;
-		const accordion = document.querySelector(".accordion .content");
+		const accordion = document.querySelectorAll(".contentSlide-" + props.currentSlideId);
+		for(let content of accordion){
+			const accordionConten =	content.querySelector(".contentInner").offsetHeight;
 	if(isOpen.value == true){
-		accordion.style.height = accordionConten + "px";
+		content.style.height = accordionConten + "px";
 	}else {
-		accordion.style.height = "0px";
+		content.style.height = "0px";
 	}
+}
 }
 function openDeleteModal(){
 	store.setModalOpen(true)

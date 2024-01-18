@@ -66,7 +66,7 @@
                     <VeeErrorMessage class="error" name="mainSpec3"></VeeErrorMessage>
                 </div>
             </div>
-            <button class="formBtn">Add product</button>
+            <button @click="checkImagesNull" class="formBtn">Add product</button>
         </VeeForm>
         <Teleport to="body">
             <ModalsProdcutImageViewCom :imageData="images" @modalCancel="closeImageViewModal" @modalDeleteImage="deleteImage" v-if="imageModalOpen == true"></ModalsProdcutImageViewCom>
@@ -96,7 +96,6 @@
         if((image.value != "" && filePngPattern.test(image.value)) || (image.value != "" && fileJpgPattern.test(image.value)) ){
             images.value.push(image.value)
             image.value = ""
-            imageAddErrorMessage.value = false
         }else{
             imageAddErrorMessage.value = true
         }
@@ -111,6 +110,13 @@
     }
     function deleteImage(data){
         images.value.splice(data, 1)
+    }
+    function checkImagesNull(){
+        if(images.value.length == 0){
+            imageErrorMessage.value = true
+        }else{
+            imageErrorMessage.value = false
+        }
     }
     function addProduct(value){
         console.log(value)
@@ -130,7 +136,17 @@
             }
             store.setProducts(tempObject)
             imageErrorMessage.value = false
-        }
+            title.value = ""
+            subTitle.value = ""
+            titleInfo.value = ""
+            price.value = ""
+            normalPrice.value = ""
+            isDemo.value = false
+            images.value = []
+            mainSpec1.value = ""
+            mainSpec2.value = ""
+            mainSpec3.value = ""
+        }   
     }
 </script>
 <style lang="scss" scoped>

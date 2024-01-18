@@ -7,7 +7,7 @@
 			</div>
 			<div class="content">
 				<h2>Edit Slides</h2>
-				<AccordionsSliderAccordionContainerCom v-for="slide in store.slides" :displayTitle="slide.title" :currentSlideId="slide.slideId"></AccordionsSliderAccordionContainerCom>
+				<AccordionsSliderAccordionContainerCom v-for="(slide, index) in store.slides" :displayTitle="slide.title" :currentSlideId="index"></AccordionsSliderAccordionContainerCom>
 			</div>
 		</div>
 	</div>

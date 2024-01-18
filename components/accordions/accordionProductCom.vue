@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<div class="accordion">
+		<div class="accordion" :class="'accordionProduct-' + currentSlideId">
 			<div class=" title" @click="isOpen = !isOpen">
 				<p>{{ displayTitle }}</p>
 				<font-awesome-icon :class=" isOpen == true ? 'arrowOpen' : ''" icon="fa-solid fa-chevron-down" />
 			</div>
-			<div class="content">
+			<div class="content" :class="'contentProduct-'+ currentSlideId">
 				<div class="contentInner">
                 <VeeForm @submit="editPorduct">
             <div class="inputGroup">
@@ -163,13 +163,16 @@ function removeProduct(){
 }
 setInputDefault()
 function openAccordion(){
-	const accordionConten =	document.querySelector(".accordion .contentInner").offsetHeight;
-		const accordion = document.querySelector(".accordion .content");
+    const accordion = document.querySelectorAll(".contentProduct-" + props.currentSlideId);
+    for(let content of accordion){
+        const accordionConten =	content.querySelector(".contentInner").offsetHeight;
+
 	if(isOpen.value == true){
-		accordion.style.height = accordionConten + "px";
+		content.style.height = accordionConten + "px";
 	}else {
-		accordion.style.height = "0px";
+		content.style.height = "0px";
 	}
+}
 }
 function openDeleteModal(){
 	store.setModalOpen(true)

@@ -56,12 +56,14 @@ const props = defineProps({
     }
 })
 function openAccordion(){
-	const accordionConten =	document.querySelector('.contentInner' + props.constentType + props.index).offsetHeight;
-		const accordion = document.querySelector('.content' + props.constentType + props.index);
-	if(isOpen.value == true){
-		accordion.style.height = accordionConten + "px";
-	}else {
-		accordion.style.height = "0px";
+		const accordion = document.querySelectorAll('.content' + props.constentType + props.index);
+	for(let content of accordion){
+		const accordionConten =	content.querySelector('.contentInner' + props.constentType + props.index).offsetHeight;
+		if(isOpen.value == true){
+			content.style.height = accordionConten + "px";
+		}else {
+			content.style.height = "0px";
+		}
 	}
 }
 onMounted(()=>{
