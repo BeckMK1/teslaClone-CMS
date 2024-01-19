@@ -14,15 +14,15 @@
                     </div>
                     <div class="dataContainer">
                         <p>btnTile1: {{ showData.btn1Title }}</p>
-                        <a :href="showData.btn1Link">{{showData.btn1Link}}</a>
-                        <p>btnTile1: {{ showData.btn2Title }}</p>
-                        <a :href="showData.btn2Link">{{showData.btn2Link}}</a>
+                        <p>btnLink1: {{showData.btn1Link}}</p>
+                        <p>btnTile2: {{ showData.btn2Title }}</p>
+						<p>btnLink2: {{showData.btn2Link}}</p>
                     </div>
                     </div>
                     <div v-if="constentType == 'product'" class="typeContent" >
                         <div class="dataContainer">
                             <p>Title: {{ showData.title }}</p>
-                            <img v-for="image in showData.images" :src="image" alt="">
+                            <p v-for="image in showData.image">{{image}}</p>
                         </div>
                         <div class="dataContainer">
 
@@ -116,6 +116,7 @@ watch(isOpen, async(newValue, oldValue)=>{
         display: grid;
         grid-template-columns: 1fr 1fr;
         .dataContainer{
+			margin-left: 1rem;
             p{
                 color:white;
                 margin-bottom: 1rem;

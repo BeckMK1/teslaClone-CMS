@@ -89,6 +89,7 @@
 const isOpen = ref(false)
 import { useStore } from "@/store/glStore"
 const store = useStore()
+const checkProducts = computed(()=>store.productsGot)
 const props = defineProps({
 	displayTitle:{
 		default:"",
@@ -97,7 +98,11 @@ const props = defineProps({
 	currentSlideId:{
 		default:0,
 		type:Number
-	}
+	},
+    productId:{
+        default:"",
+        type:String
+    }
 })
 const DeleteOpen = ref(false)
     const title = ref("")
@@ -126,42 +131,67 @@ const DeleteOpen = ref(false)
         store.setModalOpen(false)
         imageModalOpen.value = false
     }
-    function deleteImage(data){
-
-        for(let [index, product] of store.products.entries()){
-            if(props.currentSlideId == index){
-                product.images.splice(data, 1)
-            }
-        }
-    }
+async function getProducts(){
+    const {data: product} = await useFetch('http://localhost:3002/api/getAll');
+    store.setProducts(product._rawValue)
+    store.setProductGot(true)
+}
+function deleteImage(){
+    $fetch('http://localhost:3002/api/deleteProduct/'+ props.productId, {
+		method:'DELETE',
+	}).then(()=>{
+		getProducts()
+		store.setModalOpen(false)
+		DeleteOpen.value = false
+	})
+    // for(let [index, product] of store.products.entries()){
+    //     if(props.currentSlideId == index){
+    //         product.images.splice(data, 1)
+    //     }
+    // }
+}
 function setInputDefault(){
 	for(let [index, product] of store.products.entries()){
 	if(props.currentSlideId == index){
-		title.value = product.title
-        subTitle.value = product.subTitle
-        titleInfo.value = product.titleInfo
-        price.value = product.price
-        normalPrice.value = product.normalPrice
-        isDemo.value = product.isDemo
-        images.value = product.images
-        mainSpec1.value = product.mainSpec1
-        mainSpec2.value = product.mainSpec2
-        mainSpec3.value = product.mainSpec3
-
+		title.value = product.porduct.title
+        subTitle.value = product.porduct.subTitle
+        titleInfo.value = product.porduct.titleInfo
+        price.value = product.porduct.price
+        normalPrice.value = product.porduct.normalPrice
+        isDemo.value = product.porduct.isDemo
+        images.value = product.porduct.images
+        mainSpec1.value = product.porduct.mainSpec1
+        mainSpec2.value = product.porduct.mainSpec2
+        mainSpec3.value = product.porduct.mainSpec3
 	}
 }
 }
 function editPorduct(){
 	for(let product of store.products){
-        product.title = title.value 
+        product.porduct.title = title.value 
 	}
+    let tempObject = {
+        title: title.value,
+        subTitle:subTitle.value,
+        titleInfo:titleInfo.value,
+        price:price.value,
+        normalPrice:normalPrice.value,
+        isDemo:isDemo.value,
+        images:images.value,
+        mainSpec1:mainSpec1.value,
+        mainSpec2:mainSpec2.value,
+        mainSpec3:mainSpec3.value
+    }
+    $fetch('http://localhost:3002/api/upadateProduct/'+ props.productId, {
+		method:'PATCH',
+		body:{porduct:tempObject},
+	})
 }
 function removeProduct(){
 	store.deleteProduct(props.currentSlideId)
 	store.setModalOpen(false)
 
 }
-setInputDefault()
 function openAccordion(){
     const accordion = document.querySelectorAll(".contentProduct-" + props.currentSlideId);
     for(let content of accordion){
@@ -185,6 +215,8 @@ function closeDelete(){
 onMounted(()=>{
 	openAccordion()
 })
+setInputDefault()
+
 watch(isOpen, async(newValue, oldValue)=>{
 	if(newValue != oldValue){
 		openAccordion()

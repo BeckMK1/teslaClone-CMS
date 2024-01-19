@@ -6,7 +6,7 @@
 			<InputsProductInputCom></InputsProductInputCom>
 			</div>
 			<div class="content">
-				<AccordionsAccordionProductCom v-for="(product, index) in store.products" :displayTitle="product.title" :currentSlideId="index"></AccordionsAccordionProductCom>
+				<AccordionsAccordionProductCom v-for="(product, index) in store.products" :displayTitle="product.porduct.title" :productId="product._id" :currentSlideId="index"></AccordionsAccordionProductCom>
 			</div>
 		</div>
 		<Teleport to="body">
@@ -20,22 +20,21 @@
 	import { useStore } from "@/store/glStore"
 	const store = useStore()
 	const showSaveBtn = computed(()=>store.isSaveBtn)
-	const checkProducts = computed(()=>store.products.length)
+	async function getProducts(){
+    const {data: product} = await useFetch('http://localhost:3002/api/getAll');
+    store.setProducts(product._rawValue)
+	}
 	function PostToDb(){
 			for(let product of store.products){
 			$fetch('http://localhost:3002/api/post', {
 				method:'POST',
 				body:product
+			}).then(()=>{
+				getProducts()
 			})
 		}
 		store.setSaveBtn(false)
 	}
-watch(checkProducts, async(newData, oldData)=>{
-	if(newData != oldData){
-		store.setSaveBtn(true)
-	}
-
-})
 </script>
 <style lang="scss" scoped>
 

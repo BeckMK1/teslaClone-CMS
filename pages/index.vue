@@ -4,11 +4,11 @@
 			<div class="content">
 				<div>
 					<h2>Front page slides</h2>
-					<AccordionsAccordionShowDataCom v-for="(slide, index) in store.slides" :index="index"  :displayTitle="slide.title" :constentType="slide.contentType" :showData="slide"></AccordionsAccordionShowDataCom>
+					<AccordionsAccordionShowDataCom v-for="(slide, index) in store.slides" :index="index"  :displayTitle="slide.slides.title" :constentType="slide.slides.contentType" :showData="slide.slides"></AccordionsAccordionShowDataCom>
 				</div>
 				<div>
 					<h2>Product page products</h2>
-					<AccordionsAccordionShowDataCom v-for="(product, index) in store.products" :index="index"  :displayTitle="product.title" :constentType="product.contentType" :showData="product"></AccordionsAccordionShowDataCom>
+					<AccordionsAccordionShowDataCom v-for="(product, index) in store.products" :index="index"  :displayTitle="product.porduct.title" :constentType="product.porduct.contentType" :showData="product.porduct"></AccordionsAccordionShowDataCom>
 				</div>
 			</div>
 		</div>

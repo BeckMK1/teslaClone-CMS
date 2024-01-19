@@ -21,7 +21,7 @@
 				</div>
 				<div class="inputContainer">
 					<label for="btnLink1">Btn 1 Link</label>
-					<VeeField name="btnLink1" v-model="btn1Link" type="text" rules="required|link"></VeeField>
+					<VeeField name="btnLink1" v-model="btn1Link" type="text" rules="required"></VeeField>
 					<VeeErrorMessage class="error" name="btnLink1"></VeeErrorMessage>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="inputContainer">
 					<label for="btnLink2">Btn 2 Link</label>
-					<VeeField name="btnLink2" v-model="btn2Link" type="text" rules="required|link"></VeeField>
+					<VeeField name="btnLink2" v-model="btn2Link" type="text" rules="required"></VeeField>
 					<VeeErrorMessage class="error" name="btnLink2"></VeeErrorMessage>
 				</div>
 			</div>
@@ -46,24 +46,34 @@
 	const store = useStore()
 	const title = ref("")
 	const image = ref("")
+	const video = ref("")
 	const btn1Title = ref("")
 	const btn1Link = ref("")
 	const btn2Title = ref("")
 	const btn2Link = ref("")
-function onSubmit() {
-	let tempId = 0
-	tempId = store.slides.length + 1
-	let tempObject = {
-		slideId: tempId,
-		title: title.value,
-		image: image.value,
-		btn1Title: btn1Title.value,
-		btn1Link: btn1Link.value,
-		btn2Title:btn2Title.value,
-		btn2Link:btn2Link.value
+	function onSubmit() {
+		let tempObject = {
+			contentType:"slide",
+			title: title.value,
+			image: image.value,
+			video: video.value,
+			btn1Title: btn1Title.value,
+			btn1Link: btn1Link.value,
+			btn2Title:btn2Title.value,
+			btn2Link:btn2Link.value,
+			colors:"",
+			active:false
+		}
+		store.setAddSlides(tempObject)
+		store.setSaveBtn(true)
+		title.value = "",
+		image.value = "",
+		video.value = "",
+		btn1Title.value = "",
+		btn1Link.value = "",
+		btn2Title.value = "",
+		btn2Link.value = ""
 	}
-	store.setSlides(tempObject)
-}
 </script>
 <style lang="scss" scoped>
 .contentInner{

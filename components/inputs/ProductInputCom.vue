@@ -146,6 +146,7 @@
             mainSpec1.value = ""
             mainSpec2.value = ""
             mainSpec3.value = ""
+            store.setSaveBtn(true)
         }   
     }
 </script>
