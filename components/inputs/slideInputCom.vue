@@ -36,6 +36,14 @@
 					<VeeField name="btnLink2" v-model="btn2Link" type="text" rules="required"></VeeField>
 					<VeeErrorMessage class="error" name="btnLink2"></VeeErrorMessage>
 				</div>
+				<div class="inputContainer">
+					<label for="navColor">Nav Color</label>
+					<VeeField name="navColor" v-model="navColor" as="select" rules="required">
+					<option value="BlackText">Black</option>
+					<option value="WhiteText">White</option>
+					</VeeField>
+					<VeeErrorMessage class="error" name="navColor"></VeeErrorMessage>
+				</div>
 			</div>
 			<button class="formBtn">Add Slide</button>
 		</VeeForm>
@@ -51,6 +59,7 @@
 	const btn1Link = ref("")
 	const btn2Title = ref("")
 	const btn2Link = ref("")
+	const navColor  = ref("")
 	function onSubmit() {
 		let tempObject = {
 			contentType:"slide",
@@ -61,7 +70,7 @@
 			btn1Link: btn1Link.value,
 			btn2Title:btn2Title.value,
 			btn2Link:btn2Link.value,
-			colors:"",
+			colors:navColor.value,
 			active:false
 		}
 		store.setAddSlides(tempObject)
@@ -76,12 +85,12 @@
 	}
 </script>
 <style lang="scss" scoped>
-.contentInner{
-	height: fit-content;
-	box-sizing: border-box;
-	padding: 1rem;
-		p{
-			color: white;
-		}
+	.contentInner{
+		height: fit-content;
+		box-sizing: border-box;
+		padding: 1rem;
+			p{
+				color: white;
+			}
 	}
 </style>

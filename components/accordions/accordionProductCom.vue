@@ -151,20 +151,38 @@ function deleteImage(){
     // }
 }
 function setInputDefault(){
-	for(let [index, product] of store.products.entries()){
-	if(props.currentSlideId == index){
-		title.value = product.porduct.title
-        subTitle.value = product.porduct.subTitle
-        titleInfo.value = product.porduct.titleInfo
-        price.value = product.porduct.price
-        normalPrice.value = product.porduct.normalPrice
-        isDemo.value = product.porduct.isDemo
-        images.value = product.porduct.images
-        mainSpec1.value = product.porduct.mainSpec1
-        mainSpec2.value = product.porduct.mainSpec2
-        mainSpec3.value = product.porduct.mainSpec3
-	}
-}
+    if(typeof props.currentSlideId === "string" ){
+		for(let [index, product ] of store.tempProducts.entries()){
+            if(props.currentSlideId == 'tempProduct-' + index){
+                title.value = product.title
+                subTitle.value = product.subTitle
+                titleInfo.value = product.titleInfo
+                price.value = product.price
+                normalPrice.value = product.normalPrice
+                isDemo.value = product.isDemo
+                images.value = product.images
+                mainSpec1.value = product.mainSpec1
+                mainSpec2.value = product.mainSpec2
+                mainSpec3.value = product.mainSpec3
+            }
+        }
+    }
+    if(typeof props.currentSlideId === "number" ){
+        for(let [index, product] of store.products.entries()){
+            if(props.currentSlideId == index){
+                title.value = product.porduct.title
+                subTitle.value = product.porduct.subTitle
+                titleInfo.value = product.porduct.titleInfo
+                price.value = product.porduct.price
+                normalPrice.value = product.porduct.normalPrice
+                isDemo.value = product.porduct.isDemo
+                images.value = product.porduct.images
+                mainSpec1.value = product.porduct.mainSpec1
+                mainSpec2.value = product.porduct.mainSpec2
+                mainSpec3.value = product.porduct.mainSpec3
+            }
+        }
+    }
 }
 function editPorduct(){
 	for(let product of store.products){

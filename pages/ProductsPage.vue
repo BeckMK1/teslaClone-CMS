@@ -7,6 +7,7 @@
 			</div>
 			<div class="content">
 				<AccordionsAccordionProductCom v-for="(product, index) in store.products" :displayTitle="product.porduct.title" :productId="product._id" :currentSlideId="index"></AccordionsAccordionProductCom>
+				<AccordionsAccordionProductCom v-for="(product, index) in store.tempProducts" :displayTitle="product.title" :currentSlideId="'tempProduct-' + index"></AccordionsAccordionProductCom>
 			</div>
 		</div>
 		<Teleport to="body">
@@ -25,12 +26,13 @@
     store.setProducts(product._rawValue)
 	}
 	function PostToDb(){
-			for(let product of store.products){
+			for(let product of store.tempProducts){
 			$fetch('http://localhost:3002/api/post', {
 				method:'POST',
 				body:product
 			}).then(()=>{
 				getProducts()
+				store.setResetProduct()
 			})
 		}
 		store.setSaveBtn(false)

@@ -7,6 +7,7 @@ export const useStore = defineStore('glStore', {
         ],
         products:[],
         tepmSlides:[],
+        tempProducts:[],
         modalOpen:false,
         isSaveBtn:false,
         productsGot:false
@@ -30,6 +31,12 @@ export const useStore = defineStore('glStore', {
     },
     setProducts(data){
       this.products = data 
+    },
+    setTempProducts(data){
+      this.tempProducts.push(data)
+    },
+    setResetProduct(){
+      this.tempProducts = []
     },
     deleteProduct(data){
       this.products.splice(data, 1)

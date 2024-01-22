@@ -50,6 +50,12 @@
                 </div>
             </div>
             <div class="inputGroup">
+                <div class="inputContainer imageBtnContaier">
+                    <div class="formBtn" @click="openFilterViewModal">Add Filter</div>
+                    <div v-if="filterAddErrorMessage == true" class="error">filter can not be Null</div>
+                </div>
+            </div>
+            <div class="inputGroup">
                 <div class="inputContainer">
                     <label for="mainSpec1">mainSpec 1</label>
                     <VeeField type="text" name="mainSpec1" v-model="mainSpec1" rules="required"></VeeField>
@@ -71,6 +77,12 @@
         <Teleport to="body">
             <ModalsProdcutImageViewCom :imageData="images" @modalCancel="closeImageViewModal" @modalDeleteImage="deleteImage" v-if="imageModalOpen == true"></ModalsProdcutImageViewCom>
         </Teleport>
+        <Teleport to="body">
+            <ModalsProductFilterViewCom :filterData="filters" @modalCancel="closeFilterViewModal" @modalDeleteFilter="deleteFilter" v-if="filterModalOpen == true"></ModalsProductFilterViewCom>
+        </Teleport>
+        <Teleport to="body">
+            <ModalsProductFilterSelectCom @cancelFilterSelect="closeFilter" @addSelectedFilter="getFilter" v-if="selectFilterOpen == true"></ModalsProductFilterSelectCom>
+        </Teleport>
 	</div>
 </template>
 <script setup>
@@ -84,12 +96,17 @@
     const isDemo = ref("")
     const image = ref("")
     const images = ref([])
+    const filters = ref([])
     const mainSpec1 = ref("")
     const mainSpec2 = ref("")
     const mainSpec3 = ref("")
     const imageModalOpen = ref(false)
+    const filterModalOpen = ref(false)
     const imageErrorMessage = ref(false)
     const imageAddErrorMessage = ref(false)
+    const filterAddErrorMessage = ref(false)
+    const filterErrorMessage = ref(false)
+    const selectFilterOpen = ref(false)
     function addImage(){
         const filePngPattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.png')
         const fileJpgPattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.jpg')
@@ -100,13 +117,40 @@
             imageAddErrorMessage.value = true
         }
     }
+    function getFilter(data){
+        console.log(data)
+        filters.value = data
+    }
+    function addFilter(){
+        if(filter.value != ""){
+        filters.value.push(filter.value)
+        filter.value = ""
+        } else {
+            filterAddErrorMessage.value = false
+        }
+    }
+    function closeFilter(){
+        store.setModalOpen(false)
+        selectFilterOpen.value = false
+    }
+    function openFilterViewModal(){
+        store.setModalOpen(true)
+        selectFilterOpen.value = true
+    }
     function openImageViewModal(){
 	store.setModalOpen(true)
 	imageModalOpen.value = true
     }
+    function closeFilterViewModal(){
+        store.setModalOpen(false)
+        filterModalOpen.value = false
+    }
     function closeImageViewModal(){
 	store.setModalOpen(false)
 	imageModalOpen.value = false
+    }
+    function deleteFilter(data){
+        filters.value.splice(data, 1)
     }
     function deleteImage(data){
         images.value.splice(data, 1)
@@ -128,13 +172,14 @@
                 titleInfo:titleInfo.value,
                 price:price.value,
                 normalPrice:normalPrice.value,
+                filters:filters.value,
                 isDemo:isDemo.value,
                 images:images.value,
                 mainSpec1:mainSpec1.value,
                 mainSpec2:mainSpec2.value,
                 mainSpec3:mainSpec3.value,
             }
-            store.setProducts(tempObject)
+            store.setTempProducts(tempObject)
             imageErrorMessage.value = false
             title.value = ""
             subTitle.value = ""
@@ -143,6 +188,7 @@
             normalPrice.value = ""
             isDemo.value = false
             images.value = []
+            filters.value = []
             mainSpec1.value = ""
             mainSpec2.value = ""
             mainSpec3.value = ""
