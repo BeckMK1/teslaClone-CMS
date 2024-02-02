@@ -3,7 +3,7 @@
         <h3>Select filters</h3>
         <VeeForm @submit="submitFilter" class="filterSelect">
             <label for="postnummer">Postnummer</label>
-            <VeeField type="text" name="Postnummer"></VeeField>
+            <VeeField type="text" name="postnummer" v-model="zipCode"></VeeField>
             <div class="selectCat">
                 <label for="model">Model X</label>
                 <VeeField name="model" type="radio" value="Model X"></VeeField>
@@ -13,16 +13,10 @@
                 <VeeField name="model" type="radio" value="Model S"></VeeField>
             </div>
             <div class="selectCat">
-                <label for="checkBoxData1">checkBoxData</label>
-                <VeeField name="checkBoxData1" type="checkbox" value="checkBoxData1"></VeeField>
-                <label for="checkBoxData2">checkBoxData</label>
+                <label for="checkBoxData1">Performance firehjulstræk</label>
+                <VeeField name="checkBoxData1" type="checkbox" value="Performance firehjulstræk"></VeeField>
+                <label for="checkBoxData2">Long Range firehjulstræk</label>
                 <VeeField name="checkBoxData2" type="checkbox" value="checkBoxData2"></VeeField>
-                <label for="checkBoxData3">checkBoxData</label>
-                <VeeField name="checkBoxData3" type="checkbox" value="checkBoxData3"></VeeField>
-                <label for="checkBoxData4">checkBoxData</label>
-                <VeeField name="checkBoxData4" type="checkbox" value="checkBoxData4"></VeeField>
-                <label for="checkBoxData5">checkBoxData</label>
-                <VeeField name="checkBoxData5" type="checkbox" value="checkBoxData5"></VeeField>
             </div>
             <div class="btnContainer">
                 <button class="addBtn">Add Filter</button>
@@ -35,13 +29,14 @@
 <script setup>
 const emits = defineEmits(["cancelFilterSelect", "addSelectedFilter"])
 const filter = ref([])
+const zipCode = ref("")
 const isAddedFilter = ref(false)
 function submitFilter(value){
     filter.value = Object.values(value)
     filter.value = filter.value.filter((el)=>{
         return el != null
     })
-    sendFilter()
+    // sendFilter()
 }
 function sendFilter(){
     emits('addSelectedFilter', filter.value)
