@@ -1,4 +1,5 @@
 import { defineRule } from 'vee-validate';
+import postCodes from '~/data/postcodes';
 export default defineNuxtPlugin(() => {
     defineRule('required', value => {
         if (!value || !value.length) {
@@ -29,8 +30,19 @@ export default defineNuxtPlugin(() => {
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
         '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
         '(\\#[-a-z\\d_]*)?$','i')
-        if(!urlPattern.test(value)){
-            return "This field must be a valid link"
+        const fileMp4Pattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.mp4')
+        if(urlPattern.test(value) || fileMp4Pattern.test(value)){
+          return true
+        }
+        return "This field must be a valid link"
+      
+      });
+      defineRule('postCode', value => {
+        if(!value || !value.length){
+            return true;
+        }
+        if(!postCodes.includes(value)){
+            return "This field must be a valid postcode"
         }
         return true
       });

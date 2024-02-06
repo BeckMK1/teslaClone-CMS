@@ -8,9 +8,19 @@
 					<VeeErrorMessage class="error" name="title"></VeeErrorMessage>
 				</div>
 				<div class="inputContainer">
-					<label for="imageLink">Image Link</label>
-					<VeeField name="imageLink" v-model="image" type="text" rules="required|link"></VeeField>
-					<VeeErrorMessage class="error" name="imageLink"></VeeErrorMessage>
+					<div class="media">
+						<label for="imageLink">Media Link</label>
+						<VeeField name="imageLink" v-model="media" type="text" rules="required|link"></VeeField>
+						<VeeErrorMessage class="error" name="imageLink"></VeeErrorMessage>
+					</div>
+					<div class="media">
+						<label for="mediaType">Media type</label>
+						<VeeField name="mediaType" v-model="mediaType" as="select" rules="required">
+							<option value="video">Video</option>
+							<option value="image">Image</option>
+						</VeeField>
+						<VeeErrorMessage class="error" name="mediaType"></VeeErrorMessage>
+					</div>
 				</div>
 			</div>
 			<div class="inputGroup">
@@ -53,7 +63,8 @@
 	import { useStore } from "@/store/glStore"
 	const store = useStore()
 	const title = ref("")
-	const image = ref("")
+	const media = ref("")
+	const mediaType = ref("")
 	const video = ref("")
 	const btn1Title = ref("")
 	const btn1Link = ref("")
@@ -64,7 +75,8 @@
 		let tempObject = {
 			contentType:"slide",
 			title: title.value,
-			image: image.value,
+			media: media.value,
+			mediaType: mediaType.value,
 			video: video.value,
 			btn1Title: btn1Title.value,
 			btn1Link: btn1Link.value,

@@ -3,20 +3,21 @@
         <h3>Select filters</h3>
         <VeeForm @submit="submitFilter" class="filterSelect">
             <label for="postnummer">Postnummer</label>
-            <VeeField type="text" name="postnummer" v-model="zipCode"></VeeField>
+            <VeeField type="text" name="postnummer" v-model="zipCode" rules="postCode"></VeeField>
+            <VeeErrorMessage class="error" name="postnummer"></VeeErrorMessage>
             <div class="selectCat">
                 <label for="model">Model X</label>
-                <VeeField name="model" type="radio" value="Model X"></VeeField>
+                <VeeField v-model="model" name="model" type="radio" value="Model X"></VeeField>
                 <label for="model">Model Y</label>
-                <VeeField name="model" type="radio" value="Model Y"></VeeField>
+                <VeeField v-model="model" name="model" type="radio" value="Model Y"></VeeField>
                 <label for="model">Model S</label>
-                <VeeField name="model" type="radio" value="Model S"></VeeField>
+                <VeeField v-model="model" name="model" type="radio" value="Model S"></VeeField>
             </div>
             <div class="selectCat">
                 <label for="checkBoxData1">Performance firehjulstræk</label>
-                <VeeField name="checkBoxData1" type="checkbox" value="Performance firehjulstræk"></VeeField>
+                <VeeField v-model="checkboxes" name="checkBoxData1" type="checkbox" value="Performance firehjulstræk"></VeeField>
                 <label for="checkBoxData2">Long Range firehjulstræk</label>
-                <VeeField name="checkBoxData2" type="checkbox" value="checkBoxData2"></VeeField>
+                <VeeField v-model="checkboxes" name="checkBoxData2" type="checkbox" value="Long Range firehjulstræk"></VeeField>
             </div>
             <div class="btnContainer">
                 <button class="addBtn">Add Filter</button>
@@ -30,16 +31,16 @@
 const emits = defineEmits(["cancelFilterSelect", "addSelectedFilter"])
 const filter = ref([])
 const zipCode = ref("")
+const model = ref("")
+const checkboxes = ref([])
 const isAddedFilter = ref(false)
-function submitFilter(value){
-    filter.value = Object.values(value)
-    filter.value = filter.value.filter((el)=>{
-        return el != null
-    })
-    // sendFilter()
+function submitFilter(){
+    filter.value.push(...checkboxes.value)
+    filter.value.push(model.value)
+    sendFilter()
 }
 function sendFilter(){
-    emits('addSelectedFilter', filter.value)
+    emits('addSelectedFilter', filter.value, zipCode.value)
     isAddedFilter.value = true
     setTimeout(() => {
         isAddedFilter.value = false
@@ -112,5 +113,10 @@ transition: 250ms;
 .filterAddedTextShow{
     transition: 250ms;
     opacity: 100%;
+}
+.error{
+    color: red;
+    display: block;
+    margin-bottom: 1rem;
 }
 </style>

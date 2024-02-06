@@ -37,7 +37,7 @@
             <div class="inputGroup">
                 <div class="inputContainer">
                     <label for="image">Image</label>
-                    <VeeField type="text" name="image" v-model="image" rules="file"></VeeField>
+                    <VeeField as="select" name="image" v-model="image" rules="file"><option v-for="imageOption in imageOptions" :value="imageOption.value">{{imageOption.label}}</option></VeeField>
                     <VeeErrorMessage name="image" class="error"></VeeErrorMessage>
                 </div>
                 <div class="inputContainer imageBtnContaier">
@@ -94,6 +94,7 @@
     const price = ref("")
     const normalPrice = ref("")
     const isDemo = ref("")
+    const zipCode = ref("")
     const image = ref("")
     const images = ref([])
     const filters = ref([])
@@ -107,6 +108,13 @@
     const filterAddErrorMessage = ref(false)
     const filterErrorMessage = ref(false)
     const selectFilterOpen = ref(false)
+    const imageOptions = ref([
+        {label:"Black", value:"/images/nav/cars/carBlack.png"},
+        {label:"Blue", value:"/images/nav/cars/carBlue.png"},
+        {label:"Red", value:"/images/nav/cars/carRed.png"},
+        {label:"White", value:"/images/nav/cars/carWhite.png"},
+        {label:"Sliver", value:"/images/nav/cars/carSliver.png"},
+    ])
     function addImage(){
         const filePngPattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.png')
         const fileJpgPattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.jpg')
@@ -117,9 +125,10 @@
             imageAddErrorMessage.value = true
         }
     }
-    function getFilter(data){
+    function getFilter(data, data2){
         console.log(data)
         filters.value = data
+        zipCode.value = data2
     }
     function addFilter(){
         if(filter.value != ""){
@@ -173,6 +182,7 @@
                 price:price.value,
                 normalPrice:normalPrice.value,
                 filters:filters.value,
+                zipCode:zipCode.value,
                 isDemo:isDemo.value,
                 images:images.value,
                 mainSpec1:mainSpec1.value,
@@ -189,6 +199,7 @@
             isDemo.value = false
             images.value = []
             filters.value = []
+            zipCode.value = ""
             mainSpec1.value = ""
             mainSpec2.value = ""
             mainSpec3.value = ""

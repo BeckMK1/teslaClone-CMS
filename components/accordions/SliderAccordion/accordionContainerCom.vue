@@ -15,9 +15,19 @@
 					<VeeErrorMessage class="error" name="title"></VeeErrorMessage>
 				</div>
 				<div class="inputContainer">
-					<label for="imageLink">Image Link</label>
-					<VeeField name="imageLink" v-model="image" type="text" rules="required|link"></VeeField>
-					<VeeErrorMessage class="error" name="imageLink"></VeeErrorMessage>
+					<div class="media">
+						<label for="imageLink">Media Link</label>
+						<VeeField name="imageLink" v-model="media" type="text" rules="required|link"></VeeField>
+						<VeeErrorMessage class="error" name="imageLink"></VeeErrorMessage>
+					</div>
+					<div class="media">
+						<label for="mediaType">Media type</label>
+						<VeeField name="mediaType" v-model="mediaType" as="select" rules="required">
+							<option value="video">Video</option>
+							<option value="image">Image</option>
+						</VeeField>
+						<VeeErrorMessage class="error" name="mediaType"></VeeErrorMessage>
+					</div>
 				</div>
 			</div>
 			<div class="inputGroup">
@@ -43,9 +53,17 @@
 					<VeeField name="btnLink2" v-model="btn2Link" type="text" rules="required"></VeeField>
 					<VeeErrorMessage class="error" name="btnLink2"></VeeErrorMessage>
 				</div>
+				<div class="inputContainer">
+					<label for="navColor">Nav Color</label>
+					<VeeField name="navColor" v-model="navColor" as="select" rules="required">
+					<option value="BlackText">Black</option>
+					<option value="WhiteText">White</option>
+					</VeeField>
+					<VeeErrorMessage class="error" name="navColor"></VeeErrorMessage>
+				</div>
 			</div>
-			<button class="formBtn">Update Slide</button>
-					</VeeForm>
+			<button class="formBtn">Add Slide</button>
+		</VeeForm>
 					<button @click="openDeleteModal" class="deleteBtn">Remove</button>
 				</div>
 			</div>
@@ -74,22 +92,26 @@ const props = defineProps({
 })
 const DeleteOpen = ref(false)
 const title = ref("")
-const image = ref("")
+const media = ref("")
+const mediaType = ref("")
 const btn1Title = ref("")
 const btn1Link = ref("")
 const btn2Title = ref("")
 const btn2Link = ref("")
+const navColor = ref("")
 
 function setInputDefault(){
 	if(typeof props.currentSlideId === "string" ){
 		for(let [index, slide ] of store.tepmSlides.entries()){
 		if(props.currentSlideId == 'slideTemp' + index){
 			title.value = slide.title
-			image.value = slide.image
+			media.value = slide.media,
+			mediaType.value = slide.mediaType
 			btn1Title.value = slide.btn1Title
 			btn1Link.value = slide.btn1Link
 			btn2Title.value = slide.btn2Title
 			btn2Link.value = slide.btn2Link
+			navColor.value = slide.colors
 		}
 	}
 	}
@@ -97,11 +119,13 @@ function setInputDefault(){
 	for(let [index, slide ] of store.slides.entries()){
 	if(props.currentSlideId === index){
 		title.value = slide.slides.title
-		image.value = slide.slides.image
+		media.value = slide.slides.media
+		mediaType.value = slide.slides.mediaType
 		btn1Title.value = slide.slides.btn1Title
 		btn1Link.value = slide.slides.btn1Link
 		btn2Title.value = slide.slides.btn2Title
 		btn2Link.value = slide.slides.btn2Link
+		navColor.value = slide.slides.colors
 	}
 }
 }
