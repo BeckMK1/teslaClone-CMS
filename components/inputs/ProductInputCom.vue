@@ -72,6 +72,18 @@
                     <VeeErrorMessage class="error" name="mainSpec3"></VeeErrorMessage>
                 </div>
             </div>
+            <div class="inputGroup">
+                <div class="inputContainer">
+                    <label for="subspecs">Sub spec</label>
+                    <VeeField type="text" name="subspecs" v-model="subspec"></VeeField>
+                </div>
+                <div class="inputContainer imageBtnContaier">
+                    <div class="formBtn" @click="addSubspec">Add subspec</div>
+                </div>
+                <div class="inputContainer addedImageContainer">
+                    <div class="formBtn" @click="openSubSpecViewModal">View subspecs</div>
+                </div>
+            </div>
             <button @click="checkImagesNull" class="formBtn">Add product</button>
         </VeeForm>
         <Teleport to="body">
@@ -82,6 +94,9 @@
         </Teleport>
         <Teleport to="body">
             <ModalsProductFilterSelectCom @cancelFilterSelect="closeFilter" @addSelectedFilter="getFilter" v-if="selectFilterOpen == true"></ModalsProductFilterSelectCom>
+        </Teleport>
+        <Teleport to="body">
+            <ModalsProdcutSubSpecViewCom @modalCancel="closeSubSpecViewModal" @modalDeleteSubspec="deleteSubSpec" :subspecData="subspecs" v-if="subspecModalOpen == true" ></ModalsProdcutSubSpecViewCom>
         </Teleport>
 	</div>
 </template>
@@ -101,6 +116,8 @@
     const mainSpec1 = ref("")
     const mainSpec2 = ref("")
     const mainSpec3 = ref("")
+    const subspec = ref("")
+    const subspecs = ref([])
     const imageModalOpen = ref(false)
     const filterModalOpen = ref(false)
     const imageErrorMessage = ref(false)
@@ -108,6 +125,7 @@
     const filterAddErrorMessage = ref(false)
     const filterErrorMessage = ref(false)
     const selectFilterOpen = ref(false)
+    const subspecModalOpen = ref(false)
     const imageOptions = ref([
         {label:"Black", value:"/images/nav/cars/carBlack.png"},
         {label:"Blue", value:"/images/nav/cars/carBlue.png"},
@@ -150,6 +168,14 @@
 	store.setModalOpen(true)
 	imageModalOpen.value = true
     }
+    function openSubSpecViewModal(){
+	store.setModalOpen(true)
+	subspecModalOpen.value = true
+    }
+    function closeSubSpecViewModal(){
+	store.setModalOpen(false)
+	subspecModalOpen.value = false
+    }
     function closeFilterViewModal(){
         store.setModalOpen(false)
         filterModalOpen.value = false
@@ -162,6 +188,9 @@
         filters.value.splice(data, 1)
     }
     function deleteImage(data){
+        images.value.splice(data, 1)
+    }
+    function deleteSubSpec(data){
         images.value.splice(data, 1)
     }
     function checkImagesNull(){
@@ -188,6 +217,7 @@
                 mainSpec1:mainSpec1.value,
                 mainSpec2:mainSpec2.value,
                 mainSpec3:mainSpec3.value,
+                subspecs:subspecs.value,
             }
             store.setTempProducts(tempObject)
             imageErrorMessage.value = false
@@ -202,9 +232,16 @@
             zipCode.value = ""
             mainSpec1.value = ""
             mainSpec2.value = ""
-            mainSpec3.value = ""
+            mainSpec3.value = "",
+            subspecs.value = [],
             store.setSaveBtn(true)
         }   
+    }
+    function addSubspec(){
+        if(subspec.value != ""){
+            subspecs.value.push(subspec.value)
+            subspec.value = ""
+        }
     }
 </script>
 <style lang="scss" scoped>
