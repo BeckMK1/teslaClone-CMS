@@ -113,6 +113,9 @@ const DeleteOpen = ref(false)
     const isDemo = ref("")
     const image = ref("")
     const images = ref([])
+    const filters = ref([])
+    const zipCode = ref("")
+    const subspecs = ref([])
     const mainSpec1 = ref("")
     const mainSpec2 = ref("")
     const mainSpec3 = ref("")
@@ -159,6 +162,9 @@ function setInputDefault(){
                 titleInfo.value = product.titleInfo
                 price.value = product.price
                 normalPrice.value = product.normalPrice
+                filters.value = product.filters
+                zipCode.value = product.zipCode
+                subspecs.value = product.subspecs
                 isDemo.value = product.isDemo
                 images.value = product.images
                 mainSpec1.value = product.mainSpec1
@@ -174,6 +180,9 @@ function setInputDefault(){
                 subTitle.value = product.porduct.subTitle
                 titleInfo.value = product.porduct.titleInfo
                 price.value = product.porduct.price
+                filters.value = product.porduct.filters
+                zipCode.value = product.porduct.zipCode
+                subspecs.value = product.porduct.subspecs
                 normalPrice.value = product.porduct.normalPrice
                 isDemo.value = product.porduct.isDemo
                 images.value = product.porduct.images
@@ -189,10 +198,14 @@ function editPorduct(){
         product.porduct.title = title.value 
 	}
     let tempObject = {
+        contentType:"product",
         title: title.value,
         subTitle:subTitle.value,
         titleInfo:titleInfo.value,
         price:price.value,
+        filters:filters.value,
+        zipCode:zipCode.value,
+        subspecs:subspecs.value,
         normalPrice:normalPrice.value,
         isDemo:isDemo.value,
         images:images.value,
