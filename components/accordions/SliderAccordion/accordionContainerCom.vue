@@ -62,7 +62,7 @@
 					<VeeErrorMessage class="error" name="navColor"></VeeErrorMessage>
 				</div>
 			</div>
-			<button class="formBtn">Add Slide</button>
+			<button class="formBtn">Edit Slide</button>
 		</VeeForm>
 					<button @click="openDeleteModal" class="deleteBtn">Remove</button>
 				</div>
@@ -133,11 +133,14 @@ function setInputDefault(){
 function onSubmitUpdate(){
 let tempObject = {
 		title: title.value, 
-		image: image.value,
+		media: media.value,
+		mediaType: mediaType.value,
 		btn1Title: btn1Title.value, 
 		btn1Link: btn1Link.value, 
 	 	btn2Title: btn2Title.value,
-		btn2Link: btn2Link.value
+		btn2Link: btn2Link.value,
+		colors: navColor.value
+
 	}
 	if(typeof props.currentSlideId === "number" ){
 	$fetch('http://localhost:3002/api/upadateSlide/'+ props.slideId, {

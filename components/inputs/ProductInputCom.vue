@@ -108,7 +108,7 @@
     const titleInfo = ref("")
     const price = ref("")
     const normalPrice = ref("")
-    const isDemo = ref("")
+    const isDemo = ref(false)
     const zipCode = ref("")
     const image = ref("")
     const images = ref([])
@@ -131,7 +131,7 @@
         {label:"Blue", value:"/images/nav/cars/carBlue.png"},
         {label:"Red", value:"/images/nav/cars/carRed.png"},
         {label:"White", value:"/images/nav/cars/carWhite.png"},
-        {label:"Sliver", value:"/images/nav/cars/carSliver.png"},
+        {label:"Sliver", value:"/images/nav/cars/carSilver.png"},
     ])
     function addImage(){
         const filePngPattern = new RegExp('([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.png')

@@ -136,7 +136,7 @@ async function getProducts(){
     store.setProducts(product._rawValue)
     store.setProductGot(true)
 }
-function deleteImage(){
+function removeProduct(){
     $fetch('http://localhost:3002/api/deleteProduct/'+ props.productId, {
 		method:'DELETE',
 	}).then(()=>{
@@ -205,11 +205,11 @@ function editPorduct(){
 		body:{porduct:tempObject},
 	})
 }
-function removeProduct(){
-	store.deleteProduct(props.currentSlideId)
-	store.setModalOpen(false)
+// function removeProduct(){
+// 	store.deleteProduct(props.currentSlideId)
+// 	store.setModalOpen(false)
 
-}
+// }
 function openAccordion(){
     const accordion = document.querySelectorAll(".contentProduct-" + props.currentSlideId);
     for(let content of accordion){
